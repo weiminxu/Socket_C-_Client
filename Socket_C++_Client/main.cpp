@@ -34,7 +34,7 @@ void main()
 	sockaddr_in hint;
 	hint.sin_family = AF_INET;
 	hint.sin_port = htons(port);
-	inet_pton(AF_INET, ipAddress.c_str, &hint.sin_addr);
+	inet_pton(AF_INET, ipAddress.c_str(), &hint.sin_addr);
 
 	//Connect to server
 	int connResult = connect(sock, (sockaddr*)&hint, sizeof(hint));
@@ -76,6 +76,6 @@ void main()
 	} while (userInput.size() > 0);
 
    //Gracefully close down everything;
-   closesocket(sock);
+	closesocket(sock);
 	WSACleanup();
 }
