@@ -1,0 +1,3 @@
+﻿  main.cpp
+D:\git\visual_studio_code\Socket_C-_Client\Socket_C++_Client\main.cpp(4,1): warning C4326: return type of 'main' should be 'int' instead of 'void'
+  Socket_C++_Client.vcxproj -> D:\git\visual_studio_code\Socket_C-_Client\Socket_C++_Client\Debug\Socket_C++_Client.exe
