@@ -37,7 +37,45 @@ void main()
 	inet_pton(AF_INET, ipAddress.c_str, &hint.sin_addr);
 
 	//Connect to server
-	//Do-while loop to send and receive data
-	//Gracefully close down everything
+	int connResult = connect(sock, (sockaddr*)&hint, sizeof(hint));
+	if (connResult == SOCKET_ERROR) 
+	{
+		cerr << "can not connect to server, Err #" << WSAGetLastError() << endl;
+		closesocket(sock);
+		WSACleanup();
+		return;
+	}
 
+	//Do-while loop to send and receive data
+	char buf[4096];
+	string userInput;
+
+	do 
+	{
+		//prompt the user for some text
+		cout << "> ";
+		getline(cin, userInput);
+		
+		if (userInput.size() > 0)  //make sure the user has typed in something
+		{
+			//send the text
+			int sendResult = send(sock, userInput.c_str(), userInput.size() + 1, 0);
+			if (sendResult != SOCKET_ERROR)
+			{
+				//wait for respose
+				ZeroMemory(buf, 4096);
+				int bytesReceived = recv(sock, buf, 4096, 0);
+				if (bytesReceived > 0)
+				{
+					//echo response to console
+					cout << "SERVER> " << string(buf, 0, bytesReceived) << endl;
+				}
+			}
+		}
+	
+	} while (userInput.size() > 0);
+
+   //Gracefully close down everything;
+   closesocket(sock);
+	WSACleanup();
 }
