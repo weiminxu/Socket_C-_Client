@@ -26,9 +26,16 @@ void main()
 	if (sock == INVALID_SOCKET) 
 	{
 		cerr << "can not create socket, Err #" << WSAGetLastError() << endl;
+		WSACleanup();
 		return;
 	}
+
 	//Fill in a hint structure
+	sockaddr_in hint;
+	hint.sin_family = AF_INET;
+	hint.sin_port = htons(port);
+	inet_pton(AF_INET, ipAddress.c_str, &hint.sin_addr);
+
 	//Connect to server
 	//Do-while loop to send and receive data
 	//Gracefully close down everything
