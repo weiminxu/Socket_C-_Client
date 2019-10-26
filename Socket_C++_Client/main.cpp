@@ -22,6 +22,12 @@ void main()
 	}
 
 	//Create Socket
+	SOCKET sock = socket(AF_INET, SOCK_STREAM, 0);
+	if (sock == INVALID_SOCKET) 
+	{
+		cerr << "can not create socket, Err #" << WSAGetLastError() << endl;
+		return;
+	}
 	//Fill in a hint structure
 	//Connect to server
 	//Do-while loop to send and receive data
